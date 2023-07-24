@@ -24,6 +24,8 @@ public class TimelineController {
 		// postList jpa
 		List<PostEntity> postList = postBO.getPostList();
 		
+		// commentList => model
+		
 		model.addAttribute("postList", postList);
 		
 		model.addAttribute("view", "timeline/timeline");
