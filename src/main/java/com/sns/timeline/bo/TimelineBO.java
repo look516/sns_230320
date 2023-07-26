@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sns.comment.bo.CommentBO;
 import com.sns.comment.domain.CommentView;
+import com.sns.like.bo.LikeBO;
 import com.sns.post.bo.PostBO;
 import com.sns.post.entity.PostEntity;
 import com.sns.timeline.domain.CardView;
@@ -30,9 +31,13 @@ public class TimelineBO {
 	@Autowired
 	private CommentBO commentBO;
 	
+	@Autowired
+	private LikeBO likeBO;
+	
 	// input: X
 	// output: List<CardView>
-	public List<CardView> generateCardViewList() {
+	// 비로그인 시에도 카드리스트는 뿌려져야 하므로 Integer userId - null 허용
+	public List<CardView> generateCardViewList(Integer userId) {
 		// 조인문 많아질수록 재활용 어려워짐 - bo에서 로직으로 합침
 		
 		List<CardView> cardViewList = new ArrayList<>(); // []
@@ -55,9 +60,27 @@ public class TimelineBO {
 			
 			
 			
+			
+			
 			// 댓글들을 세팅한다.
 			List<CommentView> commentViewList = commentBO.generateCommentViewList(post.getId());
 			card.setCommentList(commentViewList);
+			
+			
+			
+			
+			// 좋아요 개수
+			int likeCount = likeBO.getLikeCountByPostId(post.getId());
+			card.setLikeCount(likeCount);
+			
+			// 좋아요 여부
+			// 이 예외처리를 bo에서 할 것인가? 고민
+			boolean filledLike = likeBO.filledLike(post.getId(), userId);
+			card.setFilledLike(filledLike);
+			
+			
+			
+			
 			
 			
 			// ★★★★★★ cardViewList에 담는다.
