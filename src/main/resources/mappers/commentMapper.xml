@@ -35,4 +35,12 @@
 		WHERE
 			`postId` = #{postId}
 	</select>
+	
+	<delete id="deleteCommentById" parameterType="int">
+		DELETE
+		FROM
+			`comment`
+		where 
+			`id` = #{commentId}
+	</delete>
 </mapper>
