@@ -64,12 +64,32 @@
 		)
 	</insert>
 
-	<delete id="deleteLikeByPostIdUserId" parameterType="map">
+
+
+
+
+
+
+	<!-- <delete id="deleteLikeByPostIdUserId" parameterType="map">
 		DELETE
 		FROM
 			`like`
 		WHERE
 			`postId` = #{postId}
 			AND `userId` = #{userId}
+	</delete> -->
+	
+	<!-- deleteLike 쿼리 하나로 합치기 -->
+	
+	<delete id="deleteLikeByPostIdOrUserId" parameterType="map">
+		DELETE
+		FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+			<!-- #{userId} 대신 userId라고 쓴다. -->
+			<if test="userId != null">
+			 AND `userId` = #{userId}
+			 </if>
 	</delete>
 </mapper>

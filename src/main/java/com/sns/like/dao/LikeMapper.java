@@ -27,7 +27,12 @@ public interface LikeMapper {
 			@Param("postId") int postId,
 			@Param("userId") int userId);
 
-	public void deleteLikeByPostIdUserId(
+//	public void deleteLikeByPostIdUserId(
+//			@Param("postId") int postId,
+//			@Param("userId") int userId);
+	
+	// 이 쿼리 합쳐도 되는 건지??
+	public void deleteLikeByPostIdOrUserId(
 			@Param("postId") int postId,
-			@Param("userId") int userId);
+			@Param("userId") Integer userId);
 }

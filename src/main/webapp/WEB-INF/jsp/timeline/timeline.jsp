@@ -115,7 +115,6 @@
 <!-- Button trigger modal -->
 <!-- data-target이 modal의 id가 연결되고 있는지 -->
 
-
 <!-- Modal -->
 <div class="modal fade" id="modal">
 	<%-- modal-sm: 작은 모달 --%>
@@ -297,6 +296,16 @@
 			});
 		});
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// 글 삭제(... 더보기 버튼 클릭) => 모달 띄우기
 		$('.more-btn').on('click', function(e) {
 			e.preventDefault(); // a 태그 위로 올라감 방지
@@ -307,6 +316,9 @@
 			$('#modal').data('post-id', postId); // setting
 		});
 		
+		
+		
+		
 		// 모달 안에 있는 삭제하기 클릭 => 진짜 삭제
 		$('#modal #deletePostBtn').on('click', function(e) {
 			e.preventDefault();
@@ -315,7 +327,31 @@
 			alert(postId);
 			
 			
+			
+			
 			// 글 그림 댓글 like 모두 삭제
+			
+			// ajax
+			$.ajax({
+				// request
+				type:"delete"
+				, url:"/post/delete"
+				, data:{"postId":postId}
+				
+				// response
+				, success:function(data) {
+					if (data.code == 1) {
+						alert("삭제되었습니다.");
+						location.href = "/timeline/timeline_view";
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(request, status, error) {
+					alert("글을 삭제하는데 실패했습니다.");
+				}
+			});
 		});
+		
 	});
 </script>

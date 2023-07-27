@@ -17,7 +17,7 @@ public class LikeBO {
 		// 셀렉트 => count(*)
 		if (likeMapper.selectLikeCountByPostIdOrUserId(postId, userId) > 0) {
 			// 삭제
-			likeMapper.deleteLikeByPostIdUserId(postId, userId);
+			likeMapper.deleteLikeByPostIdOrUserId(postId, userId);
 		} else {
 			// 추가
 			likeMapper.insertLike(postId, userId);
